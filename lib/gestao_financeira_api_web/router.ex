@@ -102,5 +102,12 @@ defmodule GestaoFinanceiraApiWeb.Router do
 
     # Tags
     resources "/tags", TagController, except: [:new, :edit]
+
+    # BI Analytics
+    scope "/bi" do
+      get "/transactions-by-tag", BiController, :transactions_by_tag
+      get "/summary-by-tag", BiController, :summary_by_tag
+      get "/expense-distribution", BiController, :expense_distribution
+    end
   end
 end

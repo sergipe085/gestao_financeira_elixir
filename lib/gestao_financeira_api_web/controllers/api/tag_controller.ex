@@ -33,6 +33,7 @@ defmodule GestaoFinanceiraApiWeb.Api.TagController do
     render(conn, :show, tag: tag)
   end
 
+  @spec update(Plug.Conn.t(), map()) :: any()
   def update(conn, %{"id" => id, "tag" => tag_params}) do
     current_user = Guardian.Plug.current_resource(conn)
     tag = Finance.get_tag!(id, current_user.id)

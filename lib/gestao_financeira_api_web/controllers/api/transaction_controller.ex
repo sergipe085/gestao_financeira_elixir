@@ -22,8 +22,13 @@ defmodule GestaoFinanceiraApiWeb.Api.TransactionController do
 
     with {:ok, %Transaction{} = transaction} <- Finance.create_transaction(transaction_params) do
       # Associar tags se fornecidas
-      if tag_ids = transaction_params["tag_ids"] do
-        Finance.associate_tags(transaction, tag_ids)
+      transaction = if tag_ids = transaction_params["tag_ids"] do
+        case Finance.associate_tags(transaction, tag_ids) do
+          {:ok, updated_transaction} -> updated_transaction
+          _ -> transaction
+        end
+      else
+        transaction
       end
 
       conn
@@ -45,8 +50,13 @@ defmodule GestaoFinanceiraApiWeb.Api.TransactionController do
     with {:ok, %Transaction{} = transaction} <-
            Finance.update_transaction(transaction, transaction_params) do
       # Atualizar tags se fornecidas
-      if tag_ids = transaction_params["tag_ids"] do
-        Finance.associate_tags(transaction, tag_ids)
+      transaction = if tag_ids = transaction_params["tag_ids"] do
+        case Finance.associate_tags(transaction, tag_ids) do
+          {:ok, updated_transaction} -> updated_transaction
+          _ -> transaction
+        end
+      else
+        transaction
       end
 
       render(conn, :show, transaction: transaction)

@@ -1,6 +1,15 @@
 defmodule GestaoFinanceiraApiWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :gestao_financeira_api
 
+  # Configuração do CORS para permitir todas as origins
+  plug CORSPlug,
+    origin: ["*"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    headers: ["Authorization", "Content-Type", "Accept"],
+    expose: ["Authorization"],
+    credentials: true,
+    max_age: 86400
+
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
@@ -49,5 +58,6 @@ defmodule GestaoFinanceiraApiWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+
   plug GestaoFinanceiraApiWeb.Router
 end

@@ -8,8 +8,8 @@ defmodule GestaoFinanceiraApi.Finance.Transaction do
     field :type, Ecto.Enum, values: [:receita, :despesa]
     field :date, :naive_datetime
 
-    belongs_to :user, MyApp.Accounts.User
-    many_to_many :tags, MyApp.Finance.Tag, join_through: "transaction_tags"
+    belongs_to :user, GestaoFinanceiraApi.Accounts.User
+    many_to_many :tags, GestaoFinanceiraApi.Finance.Tag, join_through: "transaction_tags"
 
     timestamps()
   end

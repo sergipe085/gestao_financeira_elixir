@@ -5,8 +5,10 @@ defmodule GestaoFinanceiraApi.Finance.Tag do
   schema "tags" do
     field :name, :string
 
-    belongs_to :user, MyApp.Accounts.User
-    many_to_many :transactions, MyApp.Finance.Transaction, join_through: "transaction_tags"
+    belongs_to :user, GestaoFinanceiraApi.Accounts.User
+
+    many_to_many :transactions, GestaoFinanceiraApi.Finance.Transaction,
+      join_through: "transaction_tags"
 
     timestamps()
   end
